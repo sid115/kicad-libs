@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "version": 1
+  },
+  "name": "Shared Parts",
+  "description": "Shared parts database built from parts.yaml",
+  "source": {
+    "type": "odbc",
+    "dsn": "",
+    "username": "",
+    "password": "",
+    "timeout_seconds": 10,
+    "connection_string": "Driver={SQLite3};Database=${CWD}/build/parts.sqlite;"
+  },
+  "cache": {
+    "max_size": 256,
+    "max_age": 10
+  },
+  "globally_unique_keys": true,
+  "libraries": [
+    {
+      "name": "Parts",
+      "table": "parts",
+      "key": "key",
+      "symbols": "symbol",
+      "footprints": "footprint",
+      "fields": [
+        {
+          "column": "value",
+          "name": "Value",
+          "visible_on_add": true,
+          "visible_in_chooser": true
+        },
+        {
+          "column": "datasheet",
+          "name": "Datasheet",
+          "visible_on_add": false,
+          "visible_in_chooser": false
+        },
+        {
+          "column": "height_mm",
+          "name": "Height (mm)",
+          "visible_on_add": false,
+          "visible_in_chooser": false
+        },
+        {
+          "column": "mpn",
+          "name": "MPN",
+          "visible_on_add": false,
+          "visible_in_chooser": true
+        },
+        {
+          "column": "manufacturer",
+          "name": "Manufacturer",
+          "visible_on_add": false,
+          "visible_in_chooser": false
+        }
+      ],
+      "properties": {
+        "description": "description",
+        "keywords": "keywords"
+      }
+    }
+  ]
+}

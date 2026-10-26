@@ -1,0 +1,48 @@
+---
+name: Build parts database
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  build-parts-db:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v17
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build parts database package
+        run: nix build .#default
+
+      - name: Validate and build parts database
+        run: |
+          ./result/bin/build-parts-db \
+            --parts parts.yaml \
+            --root . \
+            --output build/parts.sqlite \
+            --source-commit "${{ github.sha }}"
+          test -s build/parts.sqlite || (echo "parts.sqlite is empty!" && exit 1)
+
+      - name: Generate release tag
+        id: release
+        run: echo "tag=parts-$(date -u +%Y%m%d-%H%M%S)" >> "$GITHUB_OUTPUT"
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.release.outputs.tag }}
+          name: parts database ${{ github.sha }}
+          body: Auto-generated parts database from ${{ github.sha }}
+          target_commitish: ${{ github.sha }}
+          files: build/parts.sqlite

@@ -1,0 +1,4 @@
+(fp_lib_table
+	(version 7)
+	(lib (name "Shared") (type "KiCad") (uri "${KICAD_LIBS}/footprints/Shared.pretty") (options "") (descr "Shared footprints"))
+)
