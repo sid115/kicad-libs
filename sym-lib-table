@@ -1,5 +1,6 @@
 (sym_lib_table
 	(version 7)
 	(lib (name "Shared_MCUs") (type "KiCad") (uri "${KICAD_LIBS}/symbols/Shared_MCUs.kicad_sym") (options "") (descr "Shared MCU symbols"))
+	(lib (name "Shared_Ethernet") (type "KiCad") (uri "${KICAD_LIBS}/symbols/Shared_Ethernet.kicad_sym") (options "") (descr "Shared Ethernet symbols"))
 	(lib (name "SharedDB") (type "Database") (uri "${KICAD_LIBS}/parts.kicad_dbl") (options "") (descr "Shared parts database (built from parts.yaml)"))
 )
