@@ -330,3 +330,16 @@ parts:
           - mpn: "2,5 MSF 20"
             manufacturer: Lumberg
             height_mm: 22.5
+  - id: W5500
+    symbol: Shared_Ethernet:W5500
+    value: W5500
+    description: WIZnet W5500 hardwired TCP/IP Ethernet controller, 10BASE-T/100BASE-TX, SPI, 32KB buffer, 3.3V, LQFP-48
+    datasheet: https://www.lcsc.com/datasheet/lcsc_datasheet_2410121618_WIZNET-W5500_C32843.pdf
+    keywords: W5500 WIZNET Ethernet controller TCP/IP MAC PHY SPI LQFP-48
+    footprints:
+    - footprint: Shared:LQFP-48_L7.0-W7.0-P0.50-LS9.0-BL
+      package: LQFP-48 (7x7 mm)
+      mpns:
+      - mpn: W5500
+        manufacturer: WIZNET
+        height_mm: 1.4
