@@ -4,18 +4,43 @@ name: Flake Check
 on:
   pull_request:
 
+permissions:
+  contents: read
+  pull-requests: read
+
 jobs:
-  test:
+  flake-check:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Detect relevant changes
+        id: changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            checks:
+              - 'parts.yaml'
+              - 'symbols/**'
+              - 'footprints/**'
+              - '3dmodels/**'
+              - 'build_parts_db.py'
+              - 'tests/**'
+              - 'flake.nix'
+              - 'flake.lock'
+              - 'requirements.txt'
+              - 'parts.kicad_dbl'
+              - 'sym-lib-table'
+              - 'fp-lib-table'
+
       - name: Install Nix
+        if: steps.changes.outputs.checks == 'true'
         uses: cachix/install-nix-action@v17
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run tests
+        if: steps.changes.outputs.checks == 'true'
         run: nix flake check --impure --keep-going --option max-jobs 1

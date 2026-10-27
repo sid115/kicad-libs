@@ -5,6 +5,11 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'parts.yaml'
+      - 'symbols/**'
+      - 'footprints/**'
+      - '3dmodels/**'
 
 permissions:
   contents: write
