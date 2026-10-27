@@ -63,6 +63,16 @@ The user is usually designing the part inside another KiCad project and wants
 to move it into this shared library. Copy the files from their project. Never
 modify the project; only read it.
 
+### Importing from LCSC by MPN
+
+Use `python3 import_lcsc.py <MPN> --symbol-lib <Nick> --footprint-lib <Nick>` for parts that
+exist in the JLCPCB/LCSC catalogue. It resolves the exact MPN, fetches CAD with
+`easyeda2kicad`, merges the symbol, imports the footprint and STEP model, appends
+the `parts.yaml` entry and validates in a shadow copy. Use `--search` to inspect
+candidates and `--dry-run` to preview. Never use it to overwrite a curated part
+entry; `--replace` only covers generated symbol/footprint/model files. Check the help
+page with `--help`.
+
 ### 1. Establish the facts
 
 Ask for, or derive from the project, all of the following before editing:

@@ -133,6 +133,27 @@ parts:
 Each MPN belongs to the footprint for its exact package.
 The builder emits one database row per MPN.
 
+## Importing a part by MPN from LCSC
+
+Resolve an MPN through the JLCPCB parts catalogue and import the EasyEDA symbol, footprint and STEP model:
+
+```sh
+python3 import_lcsc.py STM32G474RET6 --symbol-lib Shared_MCUs --footprint-lib Shared
+```
+
+Outside the Nix dev shell, provide `easyeda2kicad` yourself, for example with `pip install easyeda2kicad`.
+
+Both library flags are required unless `--search` is used. The command:
+
+- looks up the exact MPN and requires a unique match
+- merges the symbol into `symbols/<SymbolLib>.kicad_sym`
+- copies the footprint and STEP model into `footprints/<FootprintLib>.pretty/` and `3dmodels/`
+- rewrites the model path to `${KICAD_LIBS}/3dmodels/<name>.step`
+- appends a validated entry to `parts.yaml`
+- validates the result in a shadow copy before changing the working tree
+
+Check `python3 import_lcsc.py --help` for available flags.
+
 ## Browsing the parts catalogue
 
 To build the site locally:

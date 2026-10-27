@@ -28,6 +28,7 @@ jobs:
               - '3dmodels/**'
               - 'build_parts_db.py'
               - 'build_site.py'
+              - 'import_lcsc.py'
               - 'site/**'
               - 'tests/**'
               - 'flake.nix'

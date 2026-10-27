@@ -40,6 +40,14 @@
             '';
           };
 
+          import-lcsc = pkgs.writeShellApplication {
+            name = "import-lcsc";
+            runtimeInputs = [ (python pkgs) pkgs.easyeda2kicad ];
+            text = ''
+              exec python ${./import_lcsc.py} --root "$PWD" "$@"
+            '';
+          };
+
           site = pkgs.runCommand "kicad-libs-site"
             {
               nativeBuildInputs = [ (python pkgs) ];
@@ -52,6 +60,7 @@
         in
         {
           inherit build-parts-db;
+          inherit import-lcsc;
           inherit site;
           default = build-parts-db;
         }
@@ -64,6 +73,8 @@
             packages = [
               (python pkgs)
               self.packages.${system}.default
+              self.packages.${system}.import-lcsc
+              pkgs.easyeda2kicad
             ];
 
             shellHook = ''
