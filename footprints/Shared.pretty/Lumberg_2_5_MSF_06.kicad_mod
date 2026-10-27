@@ -1,0 +1,244 @@
+(footprint "Lumberg_2_5_MSF_06"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "Lumberg 2,5 MSF 06, 6-pole vertical pin header with locking latch, 2.5 mm pitch. Datasheet: https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf")
+	(tags "Lumberg 2.5 MSF connector vertical 6 pole")
+	(property "Reference" "REF**"
+		(at 6.25 -5.2 0)
+		(layer "F.SilkS")
+		(uuid "d59a5cd3-c87a-4ae9-9a90-81d18a2d292d")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "Lumberg_2_5_MSF_06"
+		(at 6.25 5.2 0)
+		(layer "F.Fab")
+		(uuid "5c6d3f92-e3f7-4344-bc0b-fec505ebd213")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" "https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "67156df4-d2a2-4b66-846b-faaa7f34f254")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "0b0d8aad-58b5-4741-b146-4e82403dd0fa")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr through_hole)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -3.71 -3.86)
+		(end 16.21 -3.86)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "6e00ab4a-938a-449f-97e2-8e54792405e7")
+	)
+	(fp_line
+		(start -3.71 3.31)
+		(end -3.71 -3.86)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "6aabfda1-1de4-4061-920f-21f2f5e250a7")
+	)
+	(fp_line
+		(start -3.16 3.86)
+		(end -3.71 3.31)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "7ce0f48e-fc74-4170-a5f3-f578f01f6db6")
+	)
+	(fp_line
+		(start 16.21 -3.86)
+		(end 16.21 3.86)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "d943fe16-8228-46b5-83cf-94b98b2f8d86")
+	)
+	(fp_line
+		(start 16.21 3.86)
+		(end -3.16 3.86)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "36b32b37-ab88-4cdf-b93c-b3d865035038")
+	)
+	(fp_line
+		(start -3.85 -4)
+		(end 16.35 -4)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "66195cc6-ad0d-4b12-ac6b-86c7724b5c9c")
+	)
+	(fp_line
+		(start -3.85 4)
+		(end -3.85 -4)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "111ac7a6-be8e-4ef8-906e-c183cc73d5fc")
+	)
+	(fp_line
+		(start 16.35 -4)
+		(end 16.35 4)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "24dfb126-8f7e-47c5-a2ae-2d339f52dbcb")
+	)
+	(fp_line
+		(start 16.35 4)
+		(end -3.85 4)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "9390f35a-fc19-47aa-9127-82049be3117e")
+	)
+	(fp_line
+		(start -3.6 -3.75)
+		(end 16.1 -3.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "85235b26-31b9-4b7f-8251-750c47f61494")
+	)
+	(fp_line
+		(start -3.6 3.75)
+		(end -3.6 -3.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "ec2ff435-ff3b-455d-ac35-36b0373dee68")
+	)
+	(fp_line
+		(start 16.1 -3.75)
+		(end 16.1 3.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "01797500-29e7-4eb2-af91-cbd4e903329e")
+	)
+	(fp_line
+		(start 16.1 3.75)
+		(end -3.6 3.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "d7ca1ad3-0192-4e0f-b466-4db9ee52e899")
+	)
+	(pad "1" thru_hole rect
+		(at 0 0)
+		(size 1.7 1.7)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "01d03673-0662-4fb3-bac5-a3f9651131ad")
+	)
+	(pad "2" thru_hole circle
+		(at 2.5 0)
+		(size 1.7 1.7)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "c03b6f36-1260-450d-93d5-8e352c821ebf")
+	)
+	(pad "3" thru_hole circle
+		(at 5 0)
+		(size 1.7 1.7)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "6f998c30-8a78-4a5f-8f3c-ef6fbc7bb7a6")
+	)
+	(pad "4" thru_hole circle
+		(at 7.5 0)
+		(size 1.7 1.7)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "7cc18492-c259-41a4-8f87-456e861046b7")
+	)
+	(pad "5" thru_hole circle
+		(at 10 0)
+		(size 1.7 1.7)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "0079c32b-7e36-43e8-85d0-e085eb07fde6")
+	)
+	(pad "6" thru_hole circle
+		(at 12.5 0)
+		(size 1.7 1.7)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "92926911-4953-4648-97bc-ab3c5ac695ce")
+	)
+	(embedded_fonts no)
+	(model "${KICAD_LIBS}/3dmodels/Lumberg_2_5_MSF_06.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

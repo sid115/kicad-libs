@@ -1,0 +1,220 @@
+(footprint "Lumberg_2_5_MSF_03"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "Lumberg 2,5 MSF 03, 3-pole vertical pin header with locking latch, 2.5 mm pitch. Datasheet: https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf")
+	(tags "Lumberg 2.5 MSF connector vertical 3 pole")
+	(property "Reference" "REF**"
+		(at 2.5 -5.2 0)
+		(layer "F.SilkS")
+		(uuid "3c1315ec-0c3b-45c8-b8b3-adef67cc9790")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "Lumberg_2_5_MSF_03"
+		(at 2.5 5.2 0)
+		(layer "F.Fab")
+		(uuid "b376a633-7512-4517-9eb4-2f9129cecc8e")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" "https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "0a0e3959-7ea8-43c5-a071-65f1a2da63f6")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "cdd37196-ecd7-4444-b250-0a30ee5b9000")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr through_hole)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -3.71 -3.86)
+		(end 8.71 -3.86)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "b3c044c5-cc24-49c0-9791-fa17e225ac26")
+	)
+	(fp_line
+		(start -3.71 3.31)
+		(end -3.71 -3.86)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "22d6ea28-0a8c-4212-bcc5-b3f2c60a15f1")
+	)
+	(fp_line
+		(start -3.16 3.86)
+		(end -3.71 3.31)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "80a23eab-b26a-43c7-9f4a-6bf185bbcaf6")
+	)
+	(fp_line
+		(start 8.71 -3.86)
+		(end 8.71 3.86)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "ca06f3b5-bece-4636-97e7-7e7b669230a0")
+	)
+	(fp_line
+		(start 8.71 3.86)
+		(end -3.16 3.86)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "9ae49468-161c-478b-82e5-bf7e12e32352")
+	)
+	(fp_line
+		(start -3.85 -4)
+		(end 8.85 -4)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "292cd11b-d87f-44a7-922b-849f6c8934af")
+	)
+	(fp_line
+		(start -3.85 4)
+		(end -3.85 -4)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "829a48f4-95c5-4c27-a08f-aab97552e92c")
+	)
+	(fp_line
+		(start 8.85 -4)
+		(end 8.85 4)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "f2873b97-9f30-4a35-890a-92f047680e5b")
+	)
+	(fp_line
+		(start 8.85 4)
+		(end -3.85 4)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "69283608-e7ee-4572-a03e-9fad96085cfe")
+	)
+	(fp_line
+		(start -3.6 -3.75)
+		(end 8.6 -3.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "0903e4cc-13d0-40f3-829d-2466a7b4d31e")
+	)
+	(fp_line
+		(start -3.6 3.75)
+		(end -3.6 -3.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "79270f1d-7d1c-480d-9583-02aa933dec34")
+	)
+	(fp_line
+		(start 8.6 -3.75)
+		(end 8.6 3.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "92779865-3ade-4038-9232-9a7555f9032d")
+	)
+	(fp_line
+		(start 8.6 3.75)
+		(end -3.6 3.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "04978634-e975-4005-9583-d56dc6cf0a3d")
+	)
+	(pad "1" thru_hole rect
+		(at 0 0)
+		(size 1.7 1.7)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "c5b865b0-639f-4f5d-9743-ca667f535513")
+	)
+	(pad "2" thru_hole circle
+		(at 2.5 0)
+		(size 1.7 1.7)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "d82dc02e-a60e-46e3-b131-6816b7a7637c")
+	)
+	(pad "3" thru_hole circle
+		(at 5 0)
+		(size 1.7 1.7)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "319dea13-1d53-4acc-b559-2f4816f99504")
+	)
+	(embedded_fonts no)
+	(model "${KICAD_LIBS}/3dmodels/Lumberg_2_5_MSF_03.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)
