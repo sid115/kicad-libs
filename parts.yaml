@@ -1,2 +1,36 @@
 version: 1
-parts: []
+parts:
+  - id: STM32G474RxTx
+    symbol: Shared_MCUs:STM32G474RxTx
+    value: STM32G474RxTx
+    description: STMicroelectronics Arm Cortex-M4 MCU, 128-512KB flash, 128KB RAM, 170 MHz, 1.71-3.6V, 52 GPIO, LQFP64
+    datasheet: https://www.st.com/resource/en/datasheet/stm32g474re.pdf
+    keywords: STM32G474 STM32G4 Cortex-M4 MCU LQFP-64
+    footprints:
+      - footprint: Shared:QFP50P1200X1200X160-64N
+        package: LQFP-64
+        mpns:
+          - mpn: STM32G474RBT3
+            manufacturer: STMicroelectronics
+            description: STMicroelectronics Arm Cortex-M4 MCU, 128KB flash, 128KB RAM, 170 MHz, 1.71-3.6V, 52 GPIO, LQFP64, -40 to +125 °C
+            height_mm: 1.6
+          - mpn: STM32G474RBT6
+            manufacturer: STMicroelectronics
+            description: STMicroelectronics Arm Cortex-M4 MCU, 128KB flash, 128KB RAM, 170 MHz, 1.71-3.6V, 52 GPIO, LQFP64, -40 to +85 °C
+            height_mm: 1.6
+          - mpn: STM32G474RCT3
+            manufacturer: STMicroelectronics
+            description: STMicroelectronics Arm Cortex-M4 MCU, 256KB flash, 128KB RAM, 170 MHz, 1.71-3.6V, 52 GPIO, LQFP64, -40 to +125 °C
+            height_mm: 1.6
+          - mpn: STM32G474RCT6
+            manufacturer: STMicroelectronics
+            description: STMicroelectronics Arm Cortex-M4 MCU, 256KB flash, 128KB RAM, 170 MHz, 1.71-3.6V, 52 GPIO, LQFP64, -40 to +85 °C
+            height_mm: 1.6
+          - mpn: STM32G474RET3
+            manufacturer: STMicroelectronics
+            description: STMicroelectronics Arm Cortex-M4 MCU, 512KB flash, 128KB RAM, 170 MHz, 1.71-3.6V, 52 GPIO, LQFP64, -40 to +125 °C
+            height_mm: 1.6
+          - mpn: STM32G474RET6
+            manufacturer: STMicroelectronics
+            description: STMicroelectronics Arm Cortex-M4 MCU, 512KB flash, 128KB RAM, 170 MHz, 1.71-3.6V, 52 GPIO, LQFP64, -40 to +85 °C
+            height_mm: 1.6
