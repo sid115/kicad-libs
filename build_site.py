@@ -17,7 +17,6 @@ DATA_FIELDS = (
     "mpn",
     "manufacturer",
     "package",
-    "height_mm",
     "datasheet",
 )
 

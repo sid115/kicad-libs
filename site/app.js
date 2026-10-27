@@ -43,15 +43,10 @@ function compareRows(a, b) {
   if (av == null) return 1;
   if (bv == null) return -1;
 
-  let result;
-  if (key === "height_mm") {
-    result = av - bv;
-  } else {
-    result = String(av).localeCompare(String(bv), undefined, {
-      sensitivity: "base",
-      numeric: true,
-    });
-  }
+  const result = String(av).localeCompare(String(bv), undefined, {
+    sensitivity: "base",
+    numeric: true,
+  });
   if (result !== 0) return result * direction;
   return compareTies(a, b);
 }
@@ -155,7 +150,7 @@ function render() {
   if (state.filtered.length === 0) {
     const tr = document.createElement("tr");
     const td = document.createElement("td");
-    td.colSpan = 6;
+    td.colSpan = 5;
     td.className = "empty";
     td.textContent = "No matching parts";
     tr.append(td);
@@ -169,7 +164,6 @@ function render() {
         cell(row.description),
         cell(row.manufacturer || "—"),
         cell(row.package || "—"),
-        cell(row.height_mm == null ? "—" : `${row.height_mm} mm`, "numeric"),
         datasheetCell(row.datasheet, row.mpn),
       );
       fragment.append(tr);
@@ -185,7 +179,7 @@ function showError(error) {
   tbody.replaceChildren();
   const tr = document.createElement("tr");
   const td = document.createElement("td");
-  td.colSpan = 6;
+  td.colSpan = 5;
   td.className = "error";
   td.textContent = `Could not load parts.json (${error.message}). `;
   const link = document.createElement("a");

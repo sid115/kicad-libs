@@ -57,7 +57,6 @@ EXPECTED_KEYS = {
     "mpn",
     "manufacturer",
     "package",
-    "height_mm",
     "datasheet",
 }
 
@@ -95,8 +94,6 @@ class SiteRowsTests(unittest.TestCase):
         self.assertEqual(first["value"], 'DEMO <MCU> & "friends"')
         self.assertEqual(first["description"], "München CPU")
         self.assertEqual(first["package"], "PKG-A")
-        self.assertEqual(first["height_mm"], 1.6)
-        self.assertIsNone(second["height_mm"])
         self.assertEqual(second["description"], "MCU 256KB <variant>")
 
     def test_sanitises_datasheet_per_row(self):
@@ -181,7 +178,6 @@ class MarkupTests(unittest.TestCase):
                 "description",
                 "manufacturer",
                 "package",
-                "height_mm",
                 "datasheet",
             ],
         )
@@ -189,7 +185,7 @@ class MarkupTests(unittest.TestCase):
             re.findall(r'data-key="([^"]+)" aria-sort="ascending"', html),
             ["mpn"],
         )
-        self.assertIn('colspan="6"', html)
+        self.assertIn('colspan="5"', html)
 
 
 def write_site_fixture(root: Path) -> Path:
@@ -229,7 +225,7 @@ class WriteSiteTests(unittest.TestCase):
             self.assertEqual(len(data), 1)
             self.assertEqual(data[0]["mpn"], "RC0603FR-0710KL")
             self.assertEqual(data[0]["package"], "0603")
-            self.assertEqual(data[0]["height_mm"], 0.45)
+            self.assertNotIn("height_mm", data[0])
             for name in ("index.html", "app.js", "style.css"):
                 self.assertEqual(
                     (output / name).read_bytes(),
