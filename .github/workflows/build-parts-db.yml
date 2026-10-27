@@ -41,13 +41,15 @@ jobs:
 
       - name: Generate release tag
         id: release
-        run: echo "tag=parts-$(date -u +%Y%m%d-%H%M%S)" >> "$GITHUB_OUTPUT"
+        run: |
+          echo "tag=parts-$(date -u +%Y%m%d-%H%M%S)" >> "$GITHUB_OUTPUT"
+          echo "short_sha=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.release.outputs.tag }}
-          name: parts database ${{ github.sha }}
+          name: ${{ steps.release.outputs.short_sha }}
           body: Auto-generated parts database from ${{ github.sha }}
           target_commitish: ${{ github.sha }}
           files: build/parts.sqlite
