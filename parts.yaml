@@ -34,3 +34,19 @@ parts:
             manufacturer: STMicroelectronics
             description: STMicroelectronics Arm Cortex-M4 MCU, 512KB flash, 128KB RAM, 170 MHz, 1.71-3.6V, 52 GPIO, LQFP64, -40 to +85 °C
             height_mm: 1.6
+  - id: TMC9660ATB+
+    symbol: Shared_MCUs:TMC9660ATB+
+    value: TMC9660ATB+
+    description: Analog Devices TMC9660 70V smart gate driver with servo (FOC) controller in hardware and buck converter, TQFN-64
+    datasheet: https://www.analog.com/media/en/technical-documentation/data-sheets/tmc9660.pdf
+    keywords: TMC9660 TMC9660ATB+ Trinamic Analog Devices 70V gate driver BLDC PMSM stepper FOC servo controller TQFN-64 9x9
+    footprints:
+      - footprint: Shared:TQFN-64-1EP_9x9mm_P0.5mm_EP6.4x6.4mm
+        package: TQFN-64
+        mpns:
+          - mpn: TMC9660ATB+
+            manufacturer: Analog Devices
+            height_mm: 0.8
+          - mpn: TMC9660ATB+T
+            manufacturer: Analog Devices
+            height_mm: 0.8
