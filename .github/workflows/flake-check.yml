@@ -43,4 +43,4 @@ jobs:
 
       - name: Run tests
         if: steps.changes.outputs.checks == 'true'
-        run: nix flake check --impure --keep-going --option max-jobs 1
+        run: nix flake check --keep-going --option max-jobs 1

@@ -81,7 +81,7 @@ KiCad 10 is required.
    ```
    The builder must print `built build/parts.sqlite (N MPN rows)`. For full KiCad validation run:
    ```sh
-   nix flake check --impure --keep-going --option max-jobs 1
+   nix flake check --keep-going --option max-jobs 1
    ```
    `build/` is generated and must not be committed.
 

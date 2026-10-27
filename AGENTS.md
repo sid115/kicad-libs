@@ -194,7 +194,7 @@ The builder must print `built build/parts.sqlite (N MPN rows)`. Resolve every
 available, run the full KiCad validation used by CI:
 
 ```sh
-nix flake check --impure --keep-going --option max-jobs 1
+nix flake check --keep-going --option max-jobs 1
 ```
 
 This upgrades and renders every symbol and footprint with `kicad-cli`. If Nix
