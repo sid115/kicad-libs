@@ -27,6 +27,8 @@ jobs:
               - 'footprints/**'
               - '3dmodels/**'
               - 'build_parts_db.py'
+              - 'build_site.py'
+              - 'site/**'
               - 'tests/**'
               - 'flake.nix'
               - 'flake.lock'

@@ -2,6 +2,8 @@
 
 Shared KiCad 10 symbol / footprint library.
 
+Check out available parts at <https://sid115.github.io/kicad-libs/>.
+
 The catalogue is a KiCad database library.
 `parts.yaml` in this repo is the source of truth for parts, footprints and MPNs.
 `build_parts_db.py` validates it against the symbol, footprint and 3D-model files and generates `build/parts.sqlite`.
@@ -130,3 +132,14 @@ parts:
 
 Each MPN belongs to the footprint for its exact package.
 The builder emits one database row per MPN.
+
+## Browsing the parts catalogue
+
+To build the site locally:
+
+```sh
+python3 build_site.py
+python3 -m http.server --directory build/site
+```
+
+Then open <http://localhost:8000/>.

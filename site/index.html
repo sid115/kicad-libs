@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>kicad-libs parts</title>
+  <meta name="description" content="Catalogue of parts in the shared kicad-libs symbol, footprint and 3D-model library.">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>kicad-libs parts</h1>
+    <p class="subtitle">
+      <span id="summary">Loading…</span> ·
+      <a href="https://github.com/sid115/kicad-libs">Repository</a>
+    </p>
+  </header>
+
+  <main>
+    <noscript>
+      <p>
+        This catalogue needs JavaScript. You can browse
+        <a href="https://github.com/sid115/kicad-libs/blob/master/parts.yaml">parts.yaml</a>
+        or download the database from the
+        <a href="https://github.com/sid115/kicad-libs/releases">releases page</a>.
+      </p>
+    </noscript>
+
+    <div class="controls">
+      <div class="field search">
+        <label for="search">Search</label>
+        <input id="search" type="search" placeholder="Part, MPN, manufacturer, package…" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="filter-manufacturer">Manufacturer</label>
+        <select id="filter-manufacturer">
+          <option value="">All manufacturers</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="filter-package">Package</label>
+        <select id="filter-package">
+          <option value="">All packages</option>
+        </select>
+      </div>
+    </div>
+
+    <p class="count" id="result-count" role="status" aria-live="polite">Loading…</p>
+
+    <div class="table-wrap">
+      <table>
+        <caption>Parts in kicad-libs, one row per manufacturer part number</caption>
+        <thead>
+          <tr>
+            <th scope="col" data-key="mpn" aria-sort="ascending"><button type="button" class="sort">MPN</button></th>
+            <th scope="col" data-key="description" aria-sort="none"><button type="button" class="sort">Description</button></th>
+            <th scope="col" data-key="manufacturer" aria-sort="none"><button type="button" class="sort">Manufacturer</button></th>
+            <th scope="col" data-key="package" aria-sort="none"><button type="button" class="sort">Package</button></th>
+            <th scope="col" data-key="height_mm" aria-sort="none"><button type="button" class="sort">Height</button></th>
+            <th scope="col" data-key="datasheet" aria-sort="none"><button type="button" class="sort">Datasheet</button></th>
+          </tr>
+        </thead>
+        <tbody id="parts-body">
+          <tr><td colspan="6" class="empty">Loading…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer>
+    <span id="footer-summary">Loading…</span> ·
+    <a href="https://github.com/sid115/kicad-libs/blob/master/parts.yaml">parts.yaml</a>
+  </footer>
+</body>
+</html>

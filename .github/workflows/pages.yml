@@ -1,0 +1,67 @@
+---
+name: Deploy parts catalogue
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'parts.yaml'
+      - 'symbols/**'
+      - 'footprints/**'
+      - '3dmodels/**'
+      - 'build_site.py'
+      - 'build_parts_db.py'
+      - 'site/**'
+      - 'flake.nix'
+      - 'flake.lock'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v17
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build catalogue site
+        run: |
+          nix build .#site --out-link result-site
+          mkdir -p _site
+          cp -rL result-site/. _site/
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

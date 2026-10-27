@@ -39,9 +39,20 @@
                 "$@"
             '';
           };
+
+          site = pkgs.runCommand "kicad-libs-site"
+            {
+              nativeBuildInputs = [ (python pkgs) ];
+            }
+            ''
+              cp -r ${self} source
+              cd source
+              python build_site.py --parts parts.yaml --root . --output "$out"
+            '';
         in
         {
           inherit build-parts-db;
+          inherit site;
           default = build-parts-db;
         }
       );
@@ -63,7 +74,7 @@
       );
 
       checks = forAllSystems (
-        { pkgs, ... }:
+        { pkgs, system }:
         let
           kicadCheck =
             name: script:
@@ -84,6 +95,8 @@
               '';
         in
         {
+          site = self.packages.${system}.site;
+
           tests =
             pkgs.runCommand "kicad-libs-tests"
               {

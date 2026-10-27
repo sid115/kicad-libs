@@ -23,6 +23,9 @@ Key paths:
 | `footprints/<Nick>.pretty/<Name>.kicad_mod` | KiCad footprint library. Nickname must match directory stem. |
 | `3dmodels/<Name>.step` or `.stp` | 3D models referenced from footprints. |
 | `build_parts_db.py` | Validates `parts.yaml` and writes `build/parts.sqlite`. |
+| `build_site.py` | Builds the GitHub Pages catalogue from `parts.yaml`. |
+| `site/` | Static HTML, CSS and JavaScript for the catalogue. |
+| `tests/test_build_site.py` | Catalogue generator and markup tests. |
 | `parts.kicad_dbl` | KiCad database-library definition. Do not edit unless the schema changes. |
 | `sym-lib-table`, `fp-lib-table` | Shared library registration. |
 | `tests/test_build_parts_db.py` | Unit and repository-integrity tests. |
@@ -196,10 +199,13 @@ Run from the repository root:
 ```sh
 python3 build_parts_db.py
 python3 -m unittest discover -s tests -t . -v
+python3 build_site.py
 ```
 
 The builder must print `built build/parts.sqlite (N MPN rows)`. Resolve every
-`warning:` it prints; warnings mean YAML and symbol disagree. When Nix is
+`warning:` it prints; warnings mean YAML and symbol disagree. For catalogue
+changes, `python3 build_site.py` must print
+`built build/site/index.html (N MPN rows)`. When Nix is
 available, run the full KiCad validation used by CI:
 
 ```sh
@@ -294,6 +300,8 @@ KiCad symbol libraries when `KICAD*_SYMBOL_DIR`, a standard install path, or
   3D model.
 - `python3 build_parts_db.py` succeeds with the expected `built ...` line.
 - Tests pass, and `nix flake check ...` passes when available.
+- Catalogue changes rebuild `build/site/` successfully and the page previews
+  over HTTP.
 - No generated files are staged.
 - The change is on a branch and, if requested, ready for a pull request
   against `master`.
