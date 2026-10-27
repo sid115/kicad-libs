@@ -33,6 +33,8 @@ DB_FIELDS = [
     "manufacturer",
 ]
 
+EXTERNAL_METADATA_FIELDS = ("value", "description", "datasheet", "keywords")
+
 
 class PartsError(Exception):
     """Raised when parts.yaml or the referenced libraries are invalid."""
@@ -80,12 +82,39 @@ def _symbol_properties(symbol: str, root: Path | None) -> dict[str, str]:
     return properties
 
 
+def _is_external(part: dict) -> bool:
+    external = part.get("external", False)
+    if not isinstance(external, bool):
+        raise PartsError(
+            f"part {part.get('id')!r}: 'external' must be a boolean"
+        )
+    return external
+
+
+def _validate_external_metadata(part: dict, part_id: str) -> None:
+    for field in EXTERNAL_METADATA_FIELDS:
+        if field not in part:
+            raise PartsError(
+                f"part {part_id!r}: external part must set {field!r} explicitly"
+            )
+        if not isinstance(part[field], str):
+            raise PartsError(
+                f"part {part_id!r}: external part field {field!r} must be a string"
+            )
+    for field in ("value", "description"):
+        if not part[field]:
+            raise PartsError(
+                f"part {part_id!r}: external part field {field!r} must not be empty"
+            )
+
+
 def flatten_parts(doc: dict, root: Path | None = None) -> list[dict]:
     rows = []
     for part in doc["parts"]:
         part_id = part["id"]
         symbol = part["symbol"]
-        properties = _symbol_properties(symbol, root)
+        external = _is_external(part)
+        properties = {} if external else _symbol_properties(symbol, root)
 
         value = _overlay(part_id, "value", part.get("value"), properties.get("Value"))
         description = _overlay(
@@ -109,7 +138,7 @@ def flatten_parts(doc: dict, root: Path | None = None) -> list[dict]:
 
         footprints = part.get("footprints", [])
         symbol_footprint = properties.get("Footprint", "")
-        if len(footprints) == 1:
+        if len(footprints) == 1 and not external:
             footprint_id = footprints[0].get("footprint")
             if (
                 footprint_id
@@ -260,6 +289,61 @@ def resolve_symbol(lib_id: str, root: Path) -> Path:
     raise PartsError(f"symbol {lib_id!r} not found under symbols/")
 
 
+def default_symbol_dirs() -> list[Path]:
+    candidates = []
+    for name, value in sorted(os.environ.items()):
+        if re.fullmatch(r"KICAD[0-9]*_SYMBOL_DIR", name) and value:
+            candidates.append(Path(value))
+    candidates.extend(
+        [
+            Path("/usr/share/kicad/symbols"),
+            Path("/usr/local/share/kicad/symbols"),
+            Path("/opt/kicad/share/kicad/symbols"),
+            Path(
+                "/Applications/KiCad/KiCad.app/Contents/SharedSupport/symbols"
+            ),
+            Path(
+                "/var/lib/flatpak/app/org.kicad.KiCad/current/active/files"
+                "/share/kicad/symbols"
+            ),
+        ]
+    )
+
+    directories = []
+    seen = set()
+    for candidate in candidates:
+        path = candidate.expanduser()
+        key = str(path)
+        if key in seen:
+            continue
+        seen.add(key)
+        if path.is_dir():
+            directories.append(path)
+    return directories
+
+
+def check_external_symbol(
+    lib_id: str, symbol_dirs: list[Path] | None = None
+) -> None:
+    directories = default_symbol_dirs() if symbol_dirs is None else symbol_dirs
+    nickname, name = _split_lib_id(lib_id, "symbol")
+    found = []
+    for directory in directories:
+        path = Path(directory) / f"{nickname}.kicad_sym"
+        if not path.is_file():
+            continue
+        found.append(path)
+        if name in _top_level_symbol_names(path):
+            return
+
+    if found:
+        locations = ", ".join(str(path) for path in found)
+        raise PartsError(
+            f"external symbol {lib_id!r} not found in KiCad libraries: "
+            f"{locations}"
+        )
+
+
 def resolve_footprint(lib_id: str, root: Path) -> Path:
     nickname, name = _split_lib_id(lib_id, "footprint")
     path = root / "footprints" / f"{nickname}.pretty" / f"{name}.kicad_mod"
@@ -291,7 +375,9 @@ def check_models(footprint_path: Path, root: Path) -> None:
             )
 
 
-def validate_parts(doc: dict, root: Path) -> None:
+def validate_parts(
+    doc: dict, root: Path, symbol_dirs: list[Path] | None = None
+) -> None:
     part_ids: set[str] = set()
     mpns: set[str] = set()
 
@@ -305,14 +391,28 @@ def validate_parts(doc: dict, root: Path) -> None:
 
         if not part.get("symbol"):
             raise PartsError(f"part {part_id!r}: missing required field 'symbol'")
-        properties = _symbol_properties(part["symbol"], root)
+        external = _is_external(part)
+        if external:
+            _validate_external_metadata(part, part_id)
+            check_external_symbol(part["symbol"], symbol_dirs)
+            properties = {}
+        else:
+            properties = _symbol_properties(part["symbol"], root)
 
         footprints = part.get("footprints")
         if not footprints:
             raise PartsError(f"part {part_id!r}: no footprints")
 
         for footprint in footprints:
-            footprint_id = footprint.get("footprint") or properties.get("Footprint")
+            footprint_id = footprint.get("footprint")
+            if external:
+                if not footprint_id:
+                    raise PartsError(
+                        f"part {part_id!r}: external part requires an "
+                        "explicit footprint on every footprint entry"
+                    )
+            elif not footprint_id:
+                footprint_id = properties.get("Footprint")
             if not footprint_id:
                 raise PartsError(
                     f"part {part_id!r}: footprint entry is missing 'footprint' "
@@ -413,9 +513,15 @@ def write_sqlite(rows: list[dict], output: Path, source_commit: str) -> None:
         raise
 
 
-def build(parts_path: Path, output: Path, root: Path, source_commit: str) -> list[dict]:
+def build(
+    parts_path: Path,
+    output: Path,
+    root: Path,
+    source_commit: str,
+    symbol_dirs: list[Path] | None = None,
+) -> list[dict]:
     doc = load_parts(parts_path)
-    validate_parts(doc, root)
+    validate_parts(doc, root, symbol_dirs)
     rows = flatten_parts(doc, root)
     write_sqlite(rows, output, source_commit)
     return rows
@@ -427,10 +533,24 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--output", type=Path, default=ROOT / "build" / "parts.sqlite")
     parser.add_argument("--root", type=Path, default=ROOT)
     parser.add_argument("--source-commit", default="unknown")
+    parser.add_argument(
+        "--kicad-symbols-dir",
+        type=Path,
+        action="append",
+        default=None,
+        help="KiCad symbol library directory for external-symbol checks "
+        "(repeatable; defaults to KICAD*_SYMBOL_DIR and standard paths)",
+    )
     args = parser.parse_args(argv)
 
     try:
-        rows = build(args.parts, args.output, args.root, args.source_commit)
+        rows = build(
+            args.parts,
+            args.output,
+            args.root,
+            args.source_commit,
+            args.kicad_symbols_dir,
+        )
     except PartsError as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1

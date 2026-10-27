@@ -54,6 +54,7 @@ KiCad 10 is required.
 1. Add or edit the symbol under `symbols/`, its footprint under `footprints/`, and its 3D model under `3dmodels/`:
    - The symbol nickname must match the `.kicad_sym` filename stem, and the footprint nickname must match the `.pretty` directory name.
    - `Value`, `Footprint`, `Datasheet`, `Description` and `Keywords` may be authored in either the symbol or `parts.yaml` (recommended). YAML values win. Omitted fields inherit the symbol value.
+   - To reference a stock KiCad symbol such as `Device:R` instead of adding it under `symbols/`, set `external: true` on the part and supply `value`, `description`, `datasheet` and `keywords` explicitly.
    - Reference the model from the footprint as `${KICAD_LIBS}/3dmodels/<name>.stp` (or `.step`). No other `${...}` variables are supported.
    - If (and only if) you create a new library, register it in `sym-lib-table` / `fp-lib-table` with the same nickname. In `sym-lib-table`:
 

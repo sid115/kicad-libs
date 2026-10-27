@@ -48,6 +48,11 @@ LIB_ID rules:
   `footprints/<Nick>.pretty/<Name>.kicad_mod`.
 - Reference 3D models as `${KICAD_LIBS}/3dmodels/<file>.step` (or `.stp`).
   `${KICAD_LIBS}` is the only supported variable.
+- A part with `external: true` may use a stock KiCad symbol such as `Device:R`
+  without adding it under `symbols/`. External parts must set `value`,
+  `description`, `datasheet` and `keywords` explicitly in `parts.yaml`, and
+  every footprint entry must set `footprint`; symbol-Footprint fallback is not
+  available. Footprints and 3D models remain repository-local.
 
 ## Primary task: import a new part from the user's project
 
@@ -152,6 +157,10 @@ Rules:
 - `footprints` must be non-empty; every footprint needs at least one MPN.
 - `footprint` may be omitted for a single-footprint part; it then falls back
   to the symbol's `Footprint` property, but explicitly listing it is preferred.
+  For `external: true` parts, `footprint` is mandatory on every footprint entry.
+- `external` must be a boolean when present. For external parts, `value`,
+  `description`, `datasheet` and `keywords` must be set explicitly in `parts.yaml`;
+  `value` and `description` must not be empty.
 - `package` is free text describing the physical package (e.g. `LQFP-64`).
 - Record the package height as `height_mm` on each MPN when it is known from
   the datasheet or 3D model. It is optional but encouraged. It must be a
@@ -231,6 +240,10 @@ treats multiple footprints as a deliberate mapping and does not warn.
 
 The fallbacks exist for older entries and diagnostics only. New and updated
 parts must explicitly set these fields in `parts.yaml`, copied from the symbol.
+External parts have no symbol property source, so all four metadata fields and
+every footprint must be explicit. The builder checks external symbols against
+KiCad symbol libraries when `KICAD*_SYMBOL_DIR`, a standard install path, or
+`--kicad-symbols-dir` provides them; otherwise the existence check is skipped.
 
 ## Constraints
 
@@ -242,6 +255,8 @@ parts must explicitly set these fields in `parts.yaml`, copied from the symbol.
 - Never invent metadata or silently resolve conflicting files.
 - Never overwrite an existing symbol, footprint or part entry without asking.
 - Always populate `parts.yaml` from the symbol; never leave fields to fallback.
+- Use `external: true` only for stock KiCad symbols. Never use it to bypass a
+  missing or broken local symbol.
 - Do not derive `height_mm` from a symbol `Height` property; use the datasheet
   or 3D model and record it on the MPN.
 - Do not weaken tests or validation to make a build pass.
@@ -250,7 +265,11 @@ parts must explicitly set these fields in `parts.yaml`, copied from the symbol.
 ## Troubleshooting
 
 - `symbol '<Nick>:<Name>' not found under symbols/`. The nickname must match
-  the `.kicad_sym` stem and the name must be a top-level symbol.
+  the `.kicad_sym` stem and the name must be a top-level symbol. If the symbol
+  is intentional stock KiCad, set `external: true` and supply the metadata.
+- `external symbol ... not found in KiCad libraries`. The symbol LIB_ID does not
+  exist in the discovered stock/extra libraries; fix the LIB_ID or point
+  `--kicad-symbols-dir` at the correct library directory.
 - `footprint '<Nick>:<Name>' not found`. The expected path is
   `footprints/<Nick>.pretty/<Name>.kicad_mod`.
 - `3D model not found`. The rewritten path does not exist on disk.
@@ -267,6 +286,7 @@ parts must explicitly set these fields in `parts.yaml`, copied from the symbol.
 ## Done criteria
 
 - Symbol, all footprints and all 3D models exist at the expected paths.
+- External symbols are marked `external: true` and carry explicit metadata.
 - Every model path uses `${KICAD_LIBS}` and the file exists.
 - `parts.yaml` validates; every part explicitly carries the symbol's `Value`,
   `Description`, `Datasheet`, `Keywords` and footprint; IDs and MPNs are unique.

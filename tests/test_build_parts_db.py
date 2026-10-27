@@ -1,10 +1,12 @@
 import contextlib
 import io
 import json
+import os
 import re
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 from build_parts_db import (
     PartsError,
@@ -81,6 +83,35 @@ def inherited_doc(**overrides):
     }
     part.update(overrides)
     return {"version": 1, "parts": [part]}
+
+
+def external_doc(**overrides):
+    part = {
+        "id": "R_0603_10k",
+        "symbol": "Device:R",
+        "external": True,
+        "value": "10k",
+        "description": "Resistor 10k 0603",
+        "datasheet": "https://example.test/10k.pdf",
+        "keywords": "R resistor 0603",
+        "footprints": [
+            {
+                "footprint": "Shared:R_0603",
+                "package": "0603",
+                "mpns": [{"mpn": "RC0603FR-0710KL"}],
+            }
+        ],
+    }
+    part.update(overrides)
+    return {"version": 1, "parts": [part]}
+
+
+def write_symbol_library(directory: Path, nickname: str, name: str) -> None:
+    directory.mkdir(parents=True, exist_ok=True)
+    (directory / f"{nickname}.kicad_sym").write_text(
+        f'(kicad_symbol_lib\n\t(symbol "{name}"\n\t)\n)\n',
+        encoding="utf-8",
+    )
 
 
 class SymbolPropertyTests(unittest.TestCase):
@@ -258,6 +289,19 @@ class FlattenTests(unittest.TestCase):
             self.assertEqual(rows[0]["footprint"], "Test:OTHER-FP")
             self.assertIn("footprint differs from symbol", stderr)
 
+    def test_external_part_uses_yaml_metadata_without_warning(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            make_fixture_repo(root)
+            write_symbol(root, "Device", "R", SYMBOL_FIELDS)
+            rows, stderr = self.flatten_with_stderr(external_doc(), root)
+            row = rows[0]
+            self.assertEqual(row["value"], "10k")
+            self.assertEqual(row["description"], "Resistor 10k 0603")
+            self.assertEqual(row["datasheet"], "https://example.test/10k.pdf")
+            self.assertEqual(row["keywords"], "R resistor 0603")
+            self.assertEqual(stderr, "")
+
     def test_multiple_footprints_do_not_warn_for_footprint(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -379,6 +423,73 @@ class ValidationTests(unittest.TestCase):
                     doc["parts"][0]["footprints"][0]["mpns"][0]["height_mm"] = value
                     with self.assertRaisesRegex(PartsError, "height_mm"):
                         validate_parts(doc, root)
+
+    def test_external_part_without_local_symbol_passes(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            make_fixture_repo(root)
+            validate_parts(external_doc(), root, symbol_dirs=[])
+
+    def test_external_part_requires_explicit_metadata(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            make_fixture_repo(root)
+            for field in ("value", "description", "datasheet", "keywords"):
+                with self.subTest(field=field):
+                    doc = external_doc()
+                    del doc["parts"][0][field]
+                    with self.assertRaisesRegex(PartsError, field):
+                        validate_parts(doc, root, symbol_dirs=[])
+            for field in ("value", "description"):
+                with self.subTest(empty=field):
+                    doc = external_doc(**{field: ""})
+                    with self.assertRaisesRegex(PartsError, field):
+                        validate_parts(doc, root, symbol_dirs=[])
+
+    def test_external_part_requires_explicit_footprint(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            make_fixture_repo(root)
+            doc = external_doc()
+            del doc["parts"][0]["footprints"][0]["footprint"]
+            with self.assertRaisesRegex(PartsError, "explicit footprint"):
+                validate_parts(doc, root, symbol_dirs=[])
+
+    def test_external_flag_must_be_boolean(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            make_fixture_repo(root)
+            doc = external_doc(external="yes")
+            with self.assertRaisesRegex(PartsError, "external"):
+                validate_parts(doc, root, symbol_dirs=[])
+
+    def test_external_symbol_found_in_supplied_library_passes(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            make_fixture_repo(root)
+            libraries = root / "kicad-symbols"
+            write_symbol_library(libraries, "Device", "R")
+            validate_parts(external_doc(), root, symbol_dirs=[libraries])
+
+    def test_external_symbol_is_found_via_environment(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            make_fixture_repo(root)
+            libraries = root / "kicad-symbols"
+            write_symbol_library(libraries, "Device", "R")
+            with mock.patch.dict(
+                os.environ, {"KICAD10_SYMBOL_DIR": str(libraries)}
+            ):
+                validate_parts(external_doc(), root)
+
+    def test_external_symbol_missing_from_supplied_library_fails(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            make_fixture_repo(root)
+            libraries = root / "kicad-symbols"
+            write_symbol_library(libraries, "Device", "C")
+            with self.assertRaisesRegex(PartsError, "Device:R"):
+                validate_parts(external_doc(), root, symbol_dirs=[libraries])
 
     def test_missing_symbol_fails(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -705,6 +816,55 @@ class CliTests(unittest.TestCase):
             )
             self.assertTrue(output.is_file())
 
+    def test_main_builds_external_part_with_symbol_dir(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            make_fixture_repo(root)
+            libraries = root / "kicad-symbols"
+            write_symbol_library(libraries, "Device", "R")
+            parts = root / "parts.yaml"
+            parts.write_text(
+                "version: 1\n"
+                "parts:\n"
+                "  - id: R_0603_10k\n"
+                "    symbol: Device:R\n"
+                "    external: true\n"
+                "    value: 10k\n"
+                "    description: Resistor 10k 0603\n"
+                "    datasheet: https://example.test/10k.pdf\n"
+                "    keywords: R resistor 0603\n"
+                "    footprints:\n"
+                "      - footprint: Shared:R_0603\n"
+                "        package: 0603\n"
+                "        mpns:\n"
+                "          - mpn: RC0603FR-0710KL\n",
+                encoding="utf-8",
+            )
+            output = root / "build" / "parts.sqlite"
+            self.assertEqual(
+                main(
+                    [
+                        "--parts",
+                        str(parts),
+                        "--output",
+                        str(output),
+                        "--root",
+                        str(root),
+                        "--kicad-symbols-dir",
+                        str(libraries),
+                    ]
+                ),
+                0,
+            )
+            conn = sqlite3.connect(output)
+            try:
+                row = conn.execute(
+                    "SELECT symbol, value FROM parts"
+                ).fetchone()
+            finally:
+                conn.close()
+            self.assertEqual(row, ("Device:R", "10k"))
+
     def test_main_returns_one_on_invalid_input(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -792,9 +952,17 @@ class KiCadConfigTests(unittest.TestCase):
         footprint_libraries = self.parse_lib_table(
             Path("fp-lib-table").read_text(encoding="utf-8")
         )
-        rows = flatten_parts(load_parts(Path("parts.yaml")))
+        doc = load_parts(Path("parts.yaml"))
+        rows = flatten_parts(doc)
+        external_parts = {
+            part["id"] for part in doc["parts"] if part.get("external")
+        }
 
-        symbol_nicknames = {row["symbol"].split(":", 1)[0] for row in rows}
+        symbol_nicknames = {
+            row["symbol"].split(":", 1)[0]
+            for row in rows
+            if row["part_id"] not in external_parts
+        }
         footprint_nicknames = {row["footprint"].split(":", 1)[0] for row in rows}
 
         for nickname in symbol_nicknames:

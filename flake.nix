@@ -54,6 +54,10 @@
               (python pkgs)
               self.packages.${system}.default
             ];
+
+            shellHook = ''
+              export KICAD10_SYMBOL_DIR="${pkgs.kicad-small.passthru.libraries.symbols}/share/kicad/symbols"
+            '';
           };
         }
       );
@@ -84,6 +88,7 @@
             pkgs.runCommand "kicad-libs-tests"
               {
                 nativeBuildInputs = [ (python pkgs) ];
+                KICAD10_SYMBOL_DIR = "${pkgs.kicad-small.passthru.libraries.symbols}" + "/share/kicad/symbols";
               }
               ''
                 cp -r ${self} source
