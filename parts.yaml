@@ -50,3 +50,283 @@ parts:
           - mpn: TMC9660ATB+T
             manufacturer: Analog Devices
             height_mm: 0.8
+  - id: "2,5 MSF 02"
+    symbol: Connector_Generic:Conn_01x02
+    value: "2,5 MSF 02"
+    description: Lumberg Minimodul 2,5 MSF 02, 2.5 mm pitch upright single-row pin header with locking latch, 2-pole, solder contacts
+    datasheet: https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf
+    keywords: Lumberg Minimodul 2,5 MSF 02 Series 31 2.5mm pitch pin header upright vertical locking latch single row solder contacts
+    external: true
+    footprints:
+      - footprint: Shared:Lumberg_2_5_MSF_02
+        package: 2.5 mm pitch, 2-pole
+        mpns:
+          - mpn: "2,5 MSF 02"
+            manufacturer: Lumberg
+            height_mm: 22.5
+  - id: "2,5 MSF 02 (3114)"
+    symbol: Connector_Generic:Conn_01x02
+    value: "2,5 MSF 02 (3114)"
+    description: Lumberg Minimodul 2,5 MSF 02 (3114), 2.5 mm pitch upright single-row pin header with locking latch, 2-pole, special version for 3114/3111 crimp housing and solder contacts
+    datasheet: https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf
+    keywords: Lumberg Minimodul 2,5 MSF 02 3114 Series 31 2.5mm pitch pin header upright vertical locking latch single row solder contacts 3111
+    external: true
+    footprints:
+      - footprint: Shared:Lumberg_2_5_MSF_02_3114
+        package: 2.5 mm pitch, 2-pole
+        mpns:
+          - mpn: "2,5 MSF 02 (3114)"
+            manufacturer: Lumberg
+            height_mm: 22.5
+  - id: "2,5 MSF 03"
+    symbol: Connector_Generic:Conn_01x03
+    value: "2,5 MSF 03"
+    description: Lumberg Minimodul 2,5 MSF 03, 2.5 mm pitch upright single-row pin header with locking latch, 3-pole, solder contacts
+    datasheet: https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf
+    keywords: Lumberg Minimodul 2,5 MSF 03 Series 31 2.5mm pitch pin header upright vertical locking latch single row solder contacts
+    external: true
+    footprints:
+      - footprint: Shared:Lumberg_2_5_MSF_03
+        package: 2.5 mm pitch, 3-pole
+        mpns:
+          - mpn: "2,5 MSF 03"
+            manufacturer: Lumberg
+            height_mm: 22.5
+  - id: "2,5 MSF 04"
+    symbol: Connector_Generic:Conn_01x04
+    value: "2,5 MSF 04"
+    description: Lumberg Minimodul 2,5 MSF 04, 2.5 mm pitch upright single-row pin header with locking latch, 4-pole, solder contacts
+    datasheet: https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf
+    keywords: Lumberg Minimodul 2,5 MSF 04 Series 31 2.5mm pitch pin header upright vertical locking latch single row solder contacts
+    external: true
+    footprints:
+      - footprint: Shared:Lumberg_2_5_MSF_04
+        package: 2.5 mm pitch, 4-pole
+        mpns:
+          - mpn: "2,5 MSF 04"
+            manufacturer: Lumberg
+            height_mm: 22.5
+  - id: "2,5 MSF 05"
+    symbol: Connector_Generic:Conn_01x05
+    value: "2,5 MSF 05"
+    description: Lumberg Minimodul 2,5 MSF 05, 2.5 mm pitch upright single-row pin header with locking latch, 5-pole, solder contacts
+    datasheet: https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf
+    keywords: Lumberg Minimodul 2,5 MSF 05 Series 31 2.5mm pitch pin header upright vertical locking latch single row solder contacts
+    external: true
+    footprints:
+      - footprint: Shared:Lumberg_2_5_MSF_05
+        package: 2.5 mm pitch, 5-pole
+        mpns:
+          - mpn: "2,5 MSF 05"
+            manufacturer: Lumberg
+            height_mm: 22.5
+  - id: "2,5 MSF 06"
+    symbol: Connector_Generic:Conn_01x06
+    value: "2,5 MSF 06"
+    description: Lumberg Minimodul 2,5 MSF 06, 2.5 mm pitch upright single-row pin header with locking latch, 6-pole, solder contacts
+    datasheet: https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf
+    keywords: Lumberg Minimodul 2,5 MSF 06 Series 31 2.5mm pitch pin header upright vertical locking latch single row solder contacts
+    external: true
+    footprints:
+      - footprint: Shared:Lumberg_2_5_MSF_06
+        package: 2.5 mm pitch, 6-pole
+        mpns:
+          - mpn: "2,5 MSF 06"
+            manufacturer: Lumberg
+            height_mm: 22.5
+  - id: "2,5 MSF 07"
+    symbol: Connector_Generic:Conn_01x07
+    value: "2,5 MSF 07"
+    description: Lumberg Minimodul 2,5 MSF 07, 2.5 mm pitch upright single-row pin header with locking latch, 7-pole, solder contacts
+    datasheet: https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf
+    keywords: Lumberg Minimodul 2,5 MSF 07 Series 31 2.5mm pitch pin header upright vertical locking latch single row solder contacts
+    external: true
+    footprints:
+      - footprint: Shared:Lumberg_2_5_MSF_07
+        package: 2.5 mm pitch, 7-pole
+        mpns:
+          - mpn: "2,5 MSF 07"
+            manufacturer: Lumberg
+            height_mm: 22.5
+  - id: "2,5 MSF 08"
+    symbol: Connector_Generic:Conn_01x08
+    value: "2,5 MSF 08"
+    description: Lumberg Minimodul 2,5 MSF 08, 2.5 mm pitch upright single-row pin header with locking latch, 8-pole, solder contacts
+    datasheet: https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf
+    keywords: Lumberg Minimodul 2,5 MSF 08 Series 31 2.5mm pitch pin header upright vertical locking latch single row solder contacts
+    external: true
+    footprints:
+      - footprint: Shared:Lumberg_2_5_MSF_08
+        package: 2.5 mm pitch, 8-pole
+        mpns:
+          - mpn: "2,5 MSF 08"
+            manufacturer: Lumberg
+            height_mm: 22.5
+  - id: "2,5 MSF 09"
+    symbol: Connector_Generic:Conn_01x09
+    value: "2,5 MSF 09"
+    description: Lumberg Minimodul 2,5 MSF 09, 2.5 mm pitch upright single-row pin header with locking latch, 9-pole, solder contacts
+    datasheet: https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf
+    keywords: Lumberg Minimodul 2,5 MSF 09 Series 31 2.5mm pitch pin header upright vertical locking latch single row solder contacts
+    external: true
+    footprints:
+      - footprint: Shared:Lumberg_2_5_MSF_09
+        package: 2.5 mm pitch, 9-pole
+        mpns:
+          - mpn: "2,5 MSF 09"
+            manufacturer: Lumberg
+            height_mm: 22.5
+  - id: "2,5 MSF 10"
+    symbol: Connector_Generic:Conn_01x10
+    value: "2,5 MSF 10"
+    description: Lumberg Minimodul 2,5 MSF 10, 2.5 mm pitch upright single-row pin header with locking latch, 10-pole, solder contacts
+    datasheet: https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf
+    keywords: Lumberg Minimodul 2,5 MSF 10 Series 31 2.5mm pitch pin header upright vertical locking latch single row solder contacts
+    external: true
+    footprints:
+      - footprint: Shared:Lumberg_2_5_MSF_10
+        package: 2.5 mm pitch, 10-pole
+        mpns:
+          - mpn: "2,5 MSF 10"
+            manufacturer: Lumberg
+            height_mm: 22.5
+  - id: "2,5 MSF 11"
+    symbol: Connector_Generic:Conn_01x11
+    value: "2,5 MSF 11"
+    description: Lumberg Minimodul 2,5 MSF 11, 2.5 mm pitch upright single-row pin header with locking latch, 11-pole, solder contacts
+    datasheet: https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf
+    keywords: Lumberg Minimodul 2,5 MSF 11 Series 31 2.5mm pitch pin header upright vertical locking latch single row solder contacts
+    external: true
+    footprints:
+      - footprint: Shared:Lumberg_2_5_MSF_11
+        package: 2.5 mm pitch, 11-pole
+        mpns:
+          - mpn: "2,5 MSF 11"
+            manufacturer: Lumberg
+            height_mm: 22.5
+  - id: "2,5 MSF 12"
+    symbol: Connector_Generic:Conn_01x12
+    value: "2,5 MSF 12"
+    description: Lumberg Minimodul 2,5 MSF 12, 2.5 mm pitch upright single-row pin header with locking latch, 12-pole, solder contacts
+    datasheet: https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf
+    keywords: Lumberg Minimodul 2,5 MSF 12 Series 31 2.5mm pitch pin header upright vertical locking latch single row solder contacts
+    external: true
+    footprints:
+      - footprint: Shared:Lumberg_2_5_MSF_12
+        package: 2.5 mm pitch, 12-pole
+        mpns:
+          - mpn: "2,5 MSF 12"
+            manufacturer: Lumberg
+            height_mm: 22.5
+  - id: "2,5 MSF 13"
+    symbol: Connector_Generic:Conn_01x13
+    value: "2,5 MSF 13"
+    description: Lumberg Minimodul 2,5 MSF 13, 2.5 mm pitch upright single-row pin header with locking latch, 13-pole, solder contacts
+    datasheet: https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf
+    keywords: Lumberg Minimodul 2,5 MSF 13 Series 31 2.5mm pitch pin header upright vertical locking latch single row solder contacts
+    external: true
+    footprints:
+      - footprint: Shared:Lumberg_2_5_MSF_13
+        package: 2.5 mm pitch, 13-pole
+        mpns:
+          - mpn: "2,5 MSF 13"
+            manufacturer: Lumberg
+            height_mm: 22.5
+  - id: "2,5 MSF 14"
+    symbol: Connector_Generic:Conn_01x14
+    value: "2,5 MSF 14"
+    description: Lumberg Minimodul 2,5 MSF 14, 2.5 mm pitch upright single-row pin header with locking latch, 14-pole, solder contacts
+    datasheet: https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf
+    keywords: Lumberg Minimodul 2,5 MSF 14 Series 31 2.5mm pitch pin header upright vertical locking latch single row solder contacts
+    external: true
+    footprints:
+      - footprint: Shared:Lumberg_2_5_MSF_14
+        package: 2.5 mm pitch, 14-pole
+        mpns:
+          - mpn: "2,5 MSF 14"
+            manufacturer: Lumberg
+            height_mm: 22.5
+  - id: "2,5 MSF 15"
+    symbol: Connector_Generic:Conn_01x15
+    value: "2,5 MSF 15"
+    description: Lumberg Minimodul 2,5 MSF 15, 2.5 mm pitch upright single-row pin header with locking latch, 15-pole, solder contacts
+    datasheet: https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf
+    keywords: Lumberg Minimodul 2,5 MSF 15 Series 31 2.5mm pitch pin header upright vertical locking latch single row solder contacts
+    external: true
+    footprints:
+      - footprint: Shared:Lumberg_2_5_MSF_15
+        package: 2.5 mm pitch, 15-pole
+        mpns:
+          - mpn: "2,5 MSF 15"
+            manufacturer: Lumberg
+            height_mm: 22.5
+  - id: "2,5 MSF 16"
+    symbol: Connector_Generic:Conn_01x16
+    value: "2,5 MSF 16"
+    description: Lumberg Minimodul 2,5 MSF 16, 2.5 mm pitch upright single-row pin header with locking latch, 16-pole, solder contacts
+    datasheet: https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf
+    keywords: Lumberg Minimodul 2,5 MSF 16 Series 31 2.5mm pitch pin header upright vertical locking latch single row solder contacts
+    external: true
+    footprints:
+      - footprint: Shared:Lumberg_2_5_MSF_16
+        package: 2.5 mm pitch, 16-pole
+        mpns:
+          - mpn: "2,5 MSF 16"
+            manufacturer: Lumberg
+            height_mm: 22.5
+  - id: "2,5 MSF 17"
+    symbol: Connector_Generic:Conn_01x17
+    value: "2,5 MSF 17"
+    description: Lumberg Minimodul 2,5 MSF 17, 2.5 mm pitch upright single-row pin header with locking latch, 17-pole, solder contacts
+    datasheet: https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf
+    keywords: Lumberg Minimodul 2,5 MSF 17 Series 31 2.5mm pitch pin header upright vertical locking latch single row solder contacts
+    external: true
+    footprints:
+      - footprint: Shared:Lumberg_2_5_MSF_17
+        package: 2.5 mm pitch, 17-pole
+        mpns:
+          - mpn: "2,5 MSF 17"
+            manufacturer: Lumberg
+            height_mm: 22.5
+  - id: "2,5 MSF 18"
+    symbol: Connector_Generic:Conn_01x18
+    value: "2,5 MSF 18"
+    description: Lumberg Minimodul 2,5 MSF 18, 2.5 mm pitch upright single-row pin header with locking latch, 18-pole, solder contacts
+    datasheet: https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf
+    keywords: Lumberg Minimodul 2,5 MSF 18 Series 31 2.5mm pitch pin header upright vertical locking latch single row solder contacts
+    external: true
+    footprints:
+      - footprint: Shared:Lumberg_2_5_MSF_18
+        package: 2.5 mm pitch, 18-pole
+        mpns:
+          - mpn: "2,5 MSF 18"
+            manufacturer: Lumberg
+            height_mm: 22.5
+  - id: "2,5 MSF 19"
+    symbol: Connector_Generic:Conn_01x19
+    value: "2,5 MSF 19"
+    description: Lumberg Minimodul 2,5 MSF 19, 2.5 mm pitch upright single-row pin header with locking latch, 19-pole, solder contacts
+    datasheet: https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf
+    keywords: Lumberg Minimodul 2,5 MSF 19 Series 31 2.5mm pitch pin header upright vertical locking latch single row solder contacts
+    external: true
+    footprints:
+      - footprint: Shared:Lumberg_2_5_MSF_19
+        package: 2.5 mm pitch, 19-pole
+        mpns:
+          - mpn: "2,5 MSF 19"
+            manufacturer: Lumberg
+            height_mm: 22.5
+  - id: "2,5 MSF 20"
+    symbol: Connector_Generic:Conn_01x20
+    value: "2,5 MSF 20"
+    description: Lumberg Minimodul 2,5 MSF 20, 2.5 mm pitch upright single-row pin header with locking latch, 20-pole, solder contacts
+    datasheet: https://downloads.lumberg.com/datenblaetter/en/2_5msf.pdf
+    keywords: Lumberg Minimodul 2,5 MSF 20 Series 31 2.5mm pitch pin header upright vertical locking latch single row solder contacts
+    external: true
+    footprints:
+      - footprint: Shared:Lumberg_2_5_MSF_20
+        package: 2.5 mm pitch, 20-pole
+        mpns:
+          - mpn: "2,5 MSF 20"
+            manufacturer: Lumberg
+            height_mm: 22.5
