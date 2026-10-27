@@ -23,7 +23,7 @@
    `nix flake check --keep-going --option max-jobs 1`.
    `build/` is generated and must not be committed.
 4. Push your branch and open a pull request against `master`.
-5. Wait for CI to pass. The repo owner will review and merge the pull request.
+5. Wait for CI to pass. A collaborator will review and merge the pull request.
 
 Keep one part or logical change per branch and pull request.
 See [README.md](README.md) for build, setup and part-authoring details.
